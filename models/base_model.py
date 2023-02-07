@@ -24,7 +24,7 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = ((str(type(self)).split('.')[-1])).split('\'')[0]
-        return '[{}] ({}0 {]'.format(cls, self.id, self.__dict__)
+        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def to_dict(self):
         """Convert instance into dict format"""
