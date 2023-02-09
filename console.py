@@ -33,6 +33,33 @@ class HBNBCommand(cmd.Cmd):
         print(_instance.id)
         storage.save()
 
+    def do_show(self, argument):
+        """ Method to show an individual object """
+        new = argument.partition(" ")
+        obj_name = new[0]
+        obj_Id = new[2]
+
+        if obj_Id and ' ' in obj_Id:
+            obj_Id = obj_Id.partition(' ')[0]
+
+        if not obj_name:
+            print("** class name missing **")
+            return
+
+        if obj_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+
+        if not obj_Id:
+            print("** instance id missing **")
+            return
+
+        key = obj_name + "." + obj_Id
+        try:
+            print(storage._FileStorage__objects[key])
+        except KeyError:
+            print("** no instance found **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
