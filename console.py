@@ -59,6 +59,53 @@ class HBNBCommand(cmd.Cmd):
             print(storage._FileStorage__objects[key])
         except KeyError:
             print("** no instance found **")
+    
+    def do_destroy(self, args):
+        """ Destroys a specified object """
+        new = args.partition(" ")
+        obj_name = new[0]
+        obj_id = new[2]
+        if obj_id and ' ' in obj_id:
+            obj_id = obj_id.partition(' ')[0]
+
+        if not obj_name:
+            print("** class name missing **")
+            return
+
+        if obj_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+
+        if not obj_id:
+            print("** instance id missing **")
+            return
+
+        key = obj_name + "." + obj_id
+
+        try:
+            del(storage.all()[key])
+            storage.save()
+        except KeyError:
+            print("** no instance found **")
+    
+    def do_all(self, args):
+        """ Shows all objects, or all objects of a class"""
+        print_list = []
+
+        if args:
+            args = args.split(' ')[0]  # remove possible trailing args
+            if args not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+                return
+            for k, v in storage._FileStorage__objects.items():
+                if k.split('.')[0] == args:
+                    print_list.append(str(v))
+        else:
+            for k, v in storage._FileStorage__objects.items():
+                print_list.append(str(v))
+
+        print(print_list)
+
 
 
 if __name__ == '__main__':
