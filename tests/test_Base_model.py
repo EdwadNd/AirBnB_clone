@@ -6,5 +6,3 @@ import datetime
 from uuid import UUID
 import json
 import os
-
-

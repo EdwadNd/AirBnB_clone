@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
             print(storage._FileStorage__objects[key])
         except KeyError:
             print("** no instance found **")
-    
+
     def do_destroy(self, args):
         """ Destroys a specified object """
         new = args.partition(" ")
@@ -83,11 +83,11 @@ class HBNBCommand(cmd.Cmd):
         key = obj_name + "." + obj_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
-    
+
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
@@ -105,7 +105,6 @@ class HBNBCommand(cmd.Cmd):
                 print_list.append(str(v))
 
         print(print_list)
-
 
 
 if __name__ == '__main__':
