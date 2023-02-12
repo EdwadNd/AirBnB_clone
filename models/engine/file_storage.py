@@ -27,7 +27,15 @@ class FileStorage:
 
     def reload(self):
         from models.base_model import BaseModel
-        class_rep = {'BaseModel': BaseModel}
+        from models.user import User
+        from models.place import Place
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.review import Review
+        class_rep = {'BaseModel': BaseModel,'User': User,'Place': Place,
+                    'State': State, 'City': City, 'Amenity': Amenity,
+                    'Review': Review}
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
