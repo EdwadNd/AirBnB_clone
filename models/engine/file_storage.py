@@ -33,7 +33,9 @@ class FileStorage:
         from models.city import City
         from models.amenity import Amenity
         from models.review import Review
-        class_rep = {'BaseModel': BaseModel,'User': User}
+        class_rep = {'BaseModel': BaseModel,'User': User,'Place': Place,
+                    'State': State, 'City': City, 'Amenity': Amenity,
+                    'Review': Review}
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
