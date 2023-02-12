@@ -27,7 +27,8 @@ class FileStorage:
 
     def reload(self):
         from models.base_model import BaseModel
-        class_rep = {'BaseModel': BaseModel}
+        from models.user import User
+        class_rep = {'BaseModel': BaseModel,'User': User}
         try:
             temp = {}
             with open(FileStorage.__file_path, 'r') as f:
