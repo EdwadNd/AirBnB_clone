@@ -12,24 +12,22 @@ from models.amenity import Amenity
 from models.review import Review
 
 
-
 class HBNBCommand(cmd.Cmd):
     """ commandline interpreter forr HBNB """
     # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
-    classes = {'BaseModel': BaseModel,'User': User, 'Place': Place,
+    classes = {'BaseModel': BaseModel, 'User': User, 'Place': Place,
                'State': State, 'City': City, 'Amenity': Amenity,
                'Review': Review
                }
-    
+
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
-    
     def preloop(self):
         """Prints if isatty is false"""
         if not sys.__stdin__.isatty():
@@ -73,8 +71,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
-                            and type(eval(pline)) is dict:
+                    if pline[0] is '{' and pline[-1] is '}'\
+                            and isinstance(eval(pline), dict):
                         _args = pline
                     else:
                         _args = pline.replace(',', '')
@@ -85,7 +83,6 @@ class HBNBCommand(cmd.Cmd):
             pass
         finally:
             return line
-
 
     def do_quit(self, command):
         """Quit command to exit the program"""
@@ -139,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the show command """
         print("Shows an individual instance of a class")
         print("[Usage]: show <className> <objectId>\n")
-    
+
     def do_destroy(self, args):
         """ Destroys a specified object """
         new = args.partition(" ")
@@ -226,7 +223,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         # first determine if kwargs or args
-        if '{' in args[2] and '}' in args[2] and type(eval(args[2])) is dict:
+        if '{' in args[2] and '}' in args[2] and isinstance(
+                eval(args[2]), dict):
             kwargs = eval(args[2])
             args = []  # reformat kwargs into list, ex: [<name>, <value>, ...]
             for k, v in kwargs.items():
@@ -276,8 +274,6 @@ class HBNBCommand(cmd.Cmd):
                 new_dict.__dict__.update({att_name: att_val})
 
         new_dict.save()  # save updates to file
-
-
 
 
 if __name__ == '__main__':
